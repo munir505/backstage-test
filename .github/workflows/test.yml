@@ -22,8 +22,20 @@ jobs:
     - id: 'Setup'
       name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
-    - id: 'Terraform'
+    - id: 'Terraform Init'
       name: Terraform Init
       run: terraform init
       env:
         GOOGLE_CREDENTIALS: ${{ steps.auth.outputs.credentials_file_path }}
+    - id: 'Terraform plan'
+      name: Terraform Plan
+      run: terraform plan
+      env:
+        GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+    - id: 'Apply'
+      name: Terraform Apply
+      if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+      run: terraform apply -auto-approve
+      env:
+        GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+        
