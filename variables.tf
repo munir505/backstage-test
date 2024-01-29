@@ -36,16 +36,3 @@ variable "labels" {
   type        = map(any)
   default     = {}
 }
-
-variable "notification_channels" {
-  description = "Alert policy notification channels"
-  type        = list(string)
-  default     = []
-}
-
-
-variable "label" {
-  description = "Workflow label variable"
-  type        = string
-  default     = null
-}
