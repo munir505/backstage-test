@@ -16,26 +16,30 @@ jobs:
           create_credentials_file: 'true'
           workload_identity_provider: 'projects/728708171562/locations/global/workloadIdentityPools/github-test-autm-pool/providers/github-test-autm-provider'
           service_account: 'autm-github-test-sa@coen-munir-kakar.iam.gserviceaccount.com'
+          
     - id: 'checkout'
       name: Checkout
       uses: actions/checkout@v2
-    - id: 'Setup'
+      
+    - id: 'setup'
       name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
-    - id: 'Terraform Init'
+      
+    - id: 'init'
       name: Terraform Init
       run: terraform init
       env:
         GOOGLE_CREDENTIALS: ${{ steps.auth.outputs.credentials_file_path }}
-    - id: 'Terraform plan'
+        
+    - id: 'plan'
       name: Terraform Plan
       run: terraform plan
       env:
-        GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
-    - id: 'Apply'
+        GOOGLE_CREDENTIALS: ${{ steps.auth.outputs.credentials_file_path }}
+        
+    - id: 'apply'
       name: Terraform Apply
-      if: github.ref == 'refs/heads/main' && github.event_name == 'push'
       run: terraform apply -auto-approve
       env:
-        GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+        GOOGLE_CREDENTIALS: ${{ steps.auth.outputs.credentials_file_path }}
         
