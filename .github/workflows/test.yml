@@ -28,18 +28,12 @@ jobs:
     - id: 'init'
       name: Terraform Init
       run: terraform init
-      env:
-        GOOGLE_CREDENTIALS: ${{ steps.auth.outputs.credentials_file_path }}
         
     - id: 'plan'
       name: Terraform Plan
       run: terraform plan
-      env:
-        GOOGLE_CREDENTIALS: ${{ steps.auth.outputs.credentials_file_path }}
         
     - id: 'apply'
       name: Terraform Apply
       run: terraform apply -auto-approve
-      env:
-        GOOGLE_CREDENTIALS: ${{ steps.auth.outputs.credentials_file_path }}
         
