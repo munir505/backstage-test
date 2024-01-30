@@ -1,6 +1,8 @@
-name: List services in GCP
+name: Terraform Workflow
 on:
-  workflow_dispatch
+  pull_request:
+    branches:
+      - master
 
 permissions:
   id-token: write
@@ -28,6 +30,10 @@ jobs:
     - id: 'init'
       name: Terraform Init
       run: terraform init
+
+    - id: 'format'
+      name: Terraform Format
+      run: terraform fmt -check
         
     - id: 'plan'
       name: Terraform Plan
@@ -35,5 +41,6 @@ jobs:
         
     - id: 'apply'
       name: Terraform Apply
+      if: github.ref == 'refs/heads/main' && github.event_name == 'push'
       run: terraform apply -auto-approve
         
