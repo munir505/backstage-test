@@ -1,6 +1,6 @@
-name: List services in GCP
+name: Terraform Workflow
 on:
-  pull_request:
+  push:
     branches:
       - master
 
@@ -8,7 +8,7 @@ permissions:
   id-token: write
 
 jobs:
-  Get_OIDC_ID_token:
+  Terraform_Workflow:
     runs-on: ubuntu-latest
     steps:
     - id: 'auth'
@@ -16,10 +16,25 @@ jobs:
       uses: 'google-github-actions/auth@v0.3.1'
       with:
           create_credentials_file: 'true'
-          workload_identity_provider: 'projects/728708171562/locations/global/workloadIdentityPools/github-test-autm-pool/providers/github-test-autm-provider'
-          service_account: 'autm-github-test-sa@coen-munir-kakar.iam.gserviceaccount.com'
-    - id: 'gcloud'
-      name: 'gcloud'
-      run: |-
-        gcloud auth login --brief --cred-file="${{ steps.auth.outputs.credentials_file_path }}"
-        gcloud compute instances list --project=coen-munir-kakar
+          workload_identity_provider: 'projects/861708627010/locations/global/workloadIdentityPools/github-test-autm-pool/providers/github-test-autm-provider'
+          service_account: 'backstage@coen-natasha-abdul.iam.gserviceaccount.com'
+          
+    - id: 'checkout'
+      name: Checkout
+      uses: actions/checkout@v2
+      
+    - id: 'setup'
+      name: Setup Terraform
+      uses: hashicorp/setup-terraform@v1
+      
+    - id: 'init'
+      name: Terraform Init
+      run: terraform init
+        
+    - id: 'plan'
+      name: Terraform Plan
+      run: terraform plan
+        
+    - id: 'apply'
+      name: Terraform Apply
+      run: terraform apply -auto-approve

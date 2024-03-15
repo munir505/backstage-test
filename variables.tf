@@ -36,3 +36,8 @@ variable "labels" {
   type        = map(any)
   default     = {}
 }
+
+variable "service_account" {
+  description = "Service account email"
+  type        = string
+}
