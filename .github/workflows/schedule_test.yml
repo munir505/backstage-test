@@ -13,11 +13,7 @@ jobs:
       - name: Create Branch
         run: |
           git checkout -b test-2
+          git commit --allow-empty --allow-empty-message
           git push --set-upstream origin test-2
-        env:
-          GH_TOKEN: ${{ secrets.TEST_GITHUB_TOKEN }}
-
-      - name: test
-        run: gh pr create -B main -H test-2 --title 'Merge branch_to_merge into base_branch' --body 'Created by Github action'
         env:
           GH_TOKEN: ${{ secrets.TEST_GITHUB_TOKEN }}
