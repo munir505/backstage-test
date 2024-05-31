@@ -7,8 +7,5 @@ jobs:
   createPullRequest:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-
-      - name: Create Pull Request
-        id: testesttsetse
-        uses: munir505/backstage-test@v6
+      - name: test
+        run: gh pr create -B base_branch -H branch_to_merge --title 'Merge branch_to_merge into base_branch' --body 'Created by Github action'
