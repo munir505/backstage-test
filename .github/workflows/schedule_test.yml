@@ -4,9 +4,11 @@ on:
   workflow_dispatch:
 
 jobs:
-  build_FEATURE_BRANCH:
+  createPullRequest:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-    - name: Create Pull Request
-      uses: backstage-test/create-pull-request@v6
+      - uses: actions/checkout@v4
+
+      - name: Create Pull Request
+        id: testesttsetse
+        uses: backstage-test/create-pull-request@v6
