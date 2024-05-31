@@ -6,6 +6,7 @@ on:
 jobs:
   createPullRequest:
     runs-on: ubuntu-latest
+    environment: production
     steps:
       - name: test
         run: gh pr create -B base_branch -H branch_to_merge --title 'Merge branch_to_merge into base_branch' --body 'Created by Github action'
