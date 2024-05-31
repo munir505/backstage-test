@@ -8,7 +8,16 @@ jobs:
     runs-on: ubuntu-latest
     environment: production
     steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+      - name: Create Branch
+        run: |
+          git checkout -b test-2
+          git push --set-upstream origin test-2
+        env:
+          GH_TOKEN: ${{ secrets.TEST_GITHUB_TOKEN }}
+
       - name: test
-        run: gh pr create -B base_branch -H branch_to_merge --title 'Merge branch_to_merge into base_branch' --body 'Created by Github action'
+        run: gh pr create -B base_branch -H test-2 --title 'Merge branch_to_merge into base_branch' --body 'Created by Github action'
         env:
           GH_TOKEN: ${{ secrets.TEST_GITHUB_TOKEN }}
