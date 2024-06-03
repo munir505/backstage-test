@@ -29,7 +29,7 @@ jobs:
           git add secret-rotation
           git commit -m "secret-rotation"
           git push --set-upstream origin $(date +secret-rotation-%d-%m-%Y)
-          gh pr create -B master -H $(date +secret-rotation-%d-%m-%Y) --title 'PR for Secret Rotation' --body 'Created by Github action'
+          gh pr create -B main -H $(date +secret-rotation-%d-%m-%Y) --title 'PR for Secret Rotation' --body 'Created by Github action'
     
       - name: Sleep
         run: sleep 120s
