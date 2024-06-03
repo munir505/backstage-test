@@ -11,12 +11,15 @@ permissions:
 jobs:
   createPullRequest:
     runs-on: ubuntu-latest
-    environment: production
+    
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
       - name: Create Branch
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git checkout -b test-2
+          git commit --allow-empty --allow-empty-message
           git push --set-upstream origin test-2
           
