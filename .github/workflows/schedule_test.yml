@@ -24,4 +24,5 @@ jobs:
           git checkout -b test-2
           git commit --allow-empty -m "empty"
           git push --set-upstream origin test-2
+          gh pr create -B main -H test-2 --title 'Merge branch_to_merge into base_branch' --body 'Created by Github action'
           
