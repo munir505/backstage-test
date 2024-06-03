@@ -24,7 +24,8 @@ jobs:
           git config --local user.email "github-actions/backstage"
           git config --local user.name "github-actions/backstage"
           touch secret-rotation
-          secret-rotation >> $(date '+%d-%m-%Y')
+          date=$(date '+%d-%m-%Y')
+          $date >> secret-rotation
           git checkout -b $(date +secret-rotation-%d-%m-%Y)
           git add secret-rotation
           git commit -m "secret-rotation"
