@@ -19,9 +19,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          git config --local user.email "app/github-actions"
-          git config --local user.name "app/github-actions"
+          git config --local user.email "app/backstage-actions"
+          git config --local user.name "app/backstage-actions"
           git checkout -b test-2
-          git commit --allow-empty --allow-empty-message
+          git commit --allow-empty -m "empty"
           git push --set-upstream origin test-2
           
