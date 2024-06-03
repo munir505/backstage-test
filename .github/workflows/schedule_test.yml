@@ -24,7 +24,7 @@ jobs:
           git checkout -b $(date +secret-rotation-%d-%m-%Y)
           git commit --allow-empty -m "empty"
           git push --set-upstream origin $(date +secret-rotation-%d-%m-%Y)
-          gh pr create -B main -H $(date +secret-rotation-%d-%m-%Y) --title $(date +%d-%m-%Y) 'PR for Secret Rotation' --body 'Created by Github action'
+          gh pr create -B main -H $(date +secret-rotation-%d-%m-%Y) --title $(date +PR for Secret Rotation %d-%m-%Y) --body 'Created by Github action'
     
       - name: Sleep
         run: sleep 5s
