@@ -25,4 +25,15 @@ jobs:
           git commit --allow-empty -m "empty"
           git push --set-upstream origin test-2
           gh pr create -B main -H test-2 --title 'Merge branch_to_merge into base_branch' --body 'Created by Github action'
-          
+    
+      - name: Sleep for 2 minutes (for secret rotation)
+        run: sleep 20s
+        shell: bash
+      
+      - name: Create Branch
+        run: |
+          gh pr merge test-2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}         
+
+
