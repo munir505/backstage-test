@@ -3,6 +3,11 @@ name: Secret Rotation Schedule
 on:
   workflow_dispatch:
 
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
 jobs:
   createPullRequest:
     runs-on: ubuntu-latest
@@ -15,4 +20,16 @@ jobs:
           git checkout -b test-2
           git push --set-upstream origin test-2
         env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
+  create-pr:
+    runs-on: ubuntu-latest
+    if: ${{ !github.event.issue.pull_request }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Create PR when issues was created
+        uses: chyccs/empty-pr-actions@master
+        with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
