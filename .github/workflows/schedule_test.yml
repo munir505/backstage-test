@@ -21,18 +21,18 @@ jobs:
         run: |
           git config --local user.email "app/backstage-actions"
           git config --local user.name "app/backstage-actions"
-          git checkout -b $(date +secret-rotation%d-%m-%Y)
+          git checkout -b $(date +secret-rotation-%d-%m-%Y)
           git commit --allow-empty -m "empty"
-          git push --set-upstream origin $(date +secret-rotation%d-%m-%Y)
-          gh pr create -B main -H $(date +secret-rotation%d-%m-%Y) --title 'Merge branch_to_merge into base_branch' --body 'Created by Github action'
+          git push --set-upstream origin $(date +secret-rotation-%d-%m-%Y)
+          gh pr create -B main -H $(date +secret-rotation-%d-%m-%Y) --title 'PR for Secret Rotation $(date +%d-%m-%Y)' --body 'Created by Github action'
     
-      - name: Sleep for 2 minutes (for secret rotation)
+      - name: Sleep
         run: sleep 5s
         shell: bash
       
       - name: Create Branch
         run: |
-          gh pr close $(date +secret-rotation%d-%m-%Y) -d
+          gh pr close $(date +secret-rotation-%d-%m-%Y) -d
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}         
 
