@@ -18,17 +18,8 @@ jobs:
       - name: Create Branch
         run: |
           git checkout -b test-2
+          git commit --allow-empty -m "empty-test"
           git push --set-upstream origin test-2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
-  create-pr:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      - name: Create PR when issues was created
-        uses: chyccs/empty-pr-actions@master
-        with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
