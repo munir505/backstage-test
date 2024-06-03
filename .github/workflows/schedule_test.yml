@@ -13,7 +13,6 @@ jobs:
       - name: Create Branch
         run: |
           git checkout -b test-2
-          git commit --allow-empty --allow-empty-message
           git push --set-upstream origin test-2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
