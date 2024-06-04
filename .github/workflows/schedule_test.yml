@@ -23,14 +23,20 @@ jobs:
         run: |
           git config --local user.email "github-actions/backstage"
           git config --local user.name "github-actions/backstage"
-          touch ${{ github.event.pull_request.head.ref }}
+          touch secret-rotation
           date=$(date '+%d-%m-%Y')
-          echo $date >> ${{ github.event.pull_request.head.ref }}
+          echo $date >> secret-rotation
           git checkout -b $(date +secret-rotation-%d-%m-%Y)
-          git add ${{ github.event.pull_request.head.ref }}
+          git add secret-rotation
           git commit -m "secret-rotation"
           git push --set-upstream origin $(date +secret-rotation-%d-%m-%Y)
           gh pr create -B main -H $(date +secret-rotation-%d-%m-%Y) --title 'PR for Secret Rotation' --body 'Created by Github action'
+          touch ${{ github.event.pull_request.head.ref }}
+          git add ${{ github.event.pull_request.head.ref }}
+          git commit -m "add"
+          git push
+          
+          
     
       - name: Sleep
         run: sleep 120s
